@@ -87,4 +87,31 @@ public class Album {
     public void removeCollection(Collection collection) {
         this.collections.remove(collection);
     }
+
+    private String calculateDuration() {
+        int totalDuration = 0;
+
+        for (Song song : this.songs) {
+            totalDuration += song.getDuration();
+        }
+
+        int minute = 60;
+        int minutes = totalDuration / minute;
+        int seconds = totalDuration % minute;
+
+        String result = minutes + ":" + seconds;
+        return result;        
+    }
+
+    @Override
+    public String toString() {
+        String albumStr = 
+            "ID: " + this.id + 
+            ", Title: " + this.title +  
+            ", Author(s): " + this.author + 
+            ", Genre: " + this.genre + 
+            ", Year: " + this.year + 
+            ", Duration: " + this.calculateDuration();
+        return albumStr;
+    }
 }

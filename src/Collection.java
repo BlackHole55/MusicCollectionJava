@@ -54,6 +54,7 @@ public class Collection {
 
     @Override
     public String toString() {
-        return this.title;
+        String collectionStr = "ID: " + this.id + ", Title: " + this.title + ", Owner: " + this.nameOfOwner;
+        return collectionStr;
     }
 }

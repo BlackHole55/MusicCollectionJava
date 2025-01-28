@@ -59,4 +59,19 @@ public class Song {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    private String durationFormat() {
+        int minute = 60;
+        int minutes = this.duration / minute;
+        int seconds = this.duration % minute;
+
+        String result = minutes + ":" + seconds;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String albumStr = "ID: " + this.id + ", Title: " + this.title + ", Duration: " + durationFormat();
+        return albumStr;
+    }
 }
