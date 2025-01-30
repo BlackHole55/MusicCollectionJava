@@ -114,14 +114,31 @@ public class CollectionORM {
         }
     }
 
-    public static void addAlbum(int CollectionId, int albumId) {
+    public static void addAlbum(int collectionId, int albumId) {
         try {
             Connection connection = DBConnect.connect();
 
             String query = "INSERT INTO album_collection (collection_id, album_id) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, String.valueOf(CollectionId));
+            preparedStatement.setString(1, String.valueOf(collectionId));
+            preparedStatement.setString(2, String.valueOf(albumId));
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeAlbum(int collectionId, int albumId) {
+        try {
+            Connection connection = DBConnect.connect();
+
+            String query = "DELETE FROM album_collection WHERE collection_id = ? AND album_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setString(1, String.valueOf(collectionId));
             preparedStatement.setString(2, String.valueOf(albumId));
 
             preparedStatement.executeUpdate();

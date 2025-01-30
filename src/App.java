@@ -64,6 +64,31 @@ public class App {
             }
         });
 
+        // remove Album from selected collection
+        JButton removeAlbum = new JButton("Remove Album");
+        removeAlbum.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (collectionJList.getSelectedValue() == null || albumJList.getSelectedValue() == null) {
+                    JOptionPane.showMessageDialog(null, "Please select collection and album.");
+                    return;
+                }
+
+                for (Album album : collectionJList.getSelectedValue().getAlbums()) {
+                    if (albumJList.getSelectedValue().getId() == album.getId()) {
+                        CollectionORM.removeAlbum(collectionJList.getSelectedValue().getId(), album.getId());
+                        JOptionPane.showMessageDialog(null, "Album successfully removed from Collection");
+                        refreshAlbums();
+                        refreshCollections();
+                        return;
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null, "Album is no in selected Collection");
+
+            }
+        });
+
         JOptionPane jop = new JOptionPane();
 
         JDialog newCollectionDialog = jop.createDialog("New Collection");
@@ -387,9 +412,17 @@ public class App {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
 
         main.add(deleteCollection, gbc);
+
+        // remove Album Button
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+
+        main.add(removeAlbum, gbc);
 
 
         // Display Album Scroll Panel
